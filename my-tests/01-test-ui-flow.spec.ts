@@ -1,4 +1,6 @@
 import {test, expect} from '@playwright/test'
+import fs from 'fs'
+import path from 'path'
 
 let username: string = ""
 let password: string = "password"
@@ -86,7 +88,6 @@ test.describe('No session', () => {
         await context.storageState({path: './state.json'})
     });
 
-        
 });
 
 
@@ -223,5 +224,11 @@ test.describe('With session', () => {
 
         await page.getByRole('button', {name: 'Send Payment'}).click()
 
+        // write to transaction.json
+        const transactionData = { newCountNumber, amount }
+        const filePath = path.resolve(__dirname, '../transaction.json')
+
+        fs.writeFileSync(filePath, JSON.stringify(transactionData, null, 2), 'utf-8')
+        console.log(`Write to file: ${transactionData}`)
     });
 });
