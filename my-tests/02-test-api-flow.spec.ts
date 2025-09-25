@@ -36,11 +36,12 @@ test('find transaction by amount', async({ transactionData, request }) => {
         url, 
         {headers: {'Accept': 'application/json',}, }
     )
-
     console.log("response: ", response)
-    expect(response.ok()).toBeTruthy()
-    const transactions = await response.json()
 
+    // 验证 http response code = 200~299
+    expect(response.ok()).toBeTruthy()
+
+    const transactions = await response.json()
     console.log("transactions: ", transactions)
 
     // 返回的不为空，且至少有1条
