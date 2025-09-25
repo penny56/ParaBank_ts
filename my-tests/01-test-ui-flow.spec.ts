@@ -79,7 +79,7 @@ test.describe('No session', () => {
         // await page.getByRole('textbox', {name: 'password'}).fill(password)
         await page.locator('css=input[name="username"]').fill(username)
         await page.locator('css=input[name="password"]').fill(password)
-
+        console.log(`login username: ${username}, login password: ${password}`)
 
         await page.getByRole('button', {name: 'Log In'}).click()
         await expect(page.getByRole('heading', {name: 'Accounts Overview'})).toBeVisible()
