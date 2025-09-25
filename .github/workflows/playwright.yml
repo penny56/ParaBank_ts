@@ -1,25 +1,26 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 jobs:
-  test:
+  # define a job
+  test-job:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+    - uses: actions/checkout@v4       # 1. 把代码从 repos 迁出到 runner 里
+    - uses: actions/setup-node@v4     # 2. 设置 Node.js 环境，安装Node.js 的 LTS 版本
       with:
         node-version: lts/*
-    - name: Install dependencies
+    - name: Install dependencies      # 3. 安装依赖，npm ci 会依据 package-lock.json 去安装
       run: npm ci
-    - name: Install Playwright Browsers
+    - name: Install Playwright Browsers     # 4. 安装Playwright 浏览器与所需依赖
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
+    - name: Run Playwright tests            # 5. 执行 Playwright 测试 
       run: npx playwright test
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v4      # 6. 上传报告
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
