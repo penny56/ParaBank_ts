@@ -5,7 +5,7 @@ on:
   # pull_request:
   #   branches: [ main ]
   schedule:
-    - cron: "0 * * * *"       # 每小时的 0 分跑一次
+    - cron: "0 0,12 * * *"       # 每小时的 0 分跑一次
 jobs:
   # define a job
   test-job:
